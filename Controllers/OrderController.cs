@@ -52,34 +52,23 @@ namespace ObuvnoyWPF.Controllers
 
         public Order GetOrderById(int orderId)
         {
-            var order = _dbContext.Orders.Find(orderId);
-            if (order == null)
-            {
-                _message.Error("Не найдено.");
-            }
-            return order;
+            return _dbContext.Orders.Find(orderId);
         }
 
         public void RemoveOrderById(int orderId) 
         {
             var order = GetOrderById(orderId);
-            if (order != null)
-            {
-                _dbContext.Orders.Remove(order);
-                _dbContext.SaveChanges();
-                _message.Success("Успешно удалено.");
-            }
+            _dbContext.Orders.Remove(order);
+            _dbContext.SaveChanges();
+            _message.Success("Успешно удалено.");
         }
 
         public void UpdateOrderById(Order updatedOrder)
         {
             var existingOrder = GetOrderById(updatedOrder.Id);
-            if (existingOrder != null)
-            {
-                _dbContext.Entry(existingOrder).CurrentValues.SetValues(updatedOrder);
-                _dbContext.SaveChanges();
-                _message.Success("Заказ успешно обновлен.");
-            }
+            _dbContext.Entry(existingOrder).CurrentValues.SetValues(updatedOrder);
+            _dbContext.SaveChanges();
+            _message.Success("Заказ успешно обновлен.");
         }
     }
 }

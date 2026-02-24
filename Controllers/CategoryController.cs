@@ -38,23 +38,15 @@ namespace ObuvnoyWPF.Controllers
 
         public Category GetCategoryById(int categoryId)
         {
-            var category = _dbContext.Categories.Find(categoryId);
-            if (category == null)
-            {
-                _message.Error("Такого не существует.");
-            }
-            return category;
+            return _dbContext.Categories.Find(categoryId);
         }
 
         public void RemoveCategoryById(int categoryId)
         {
             var category = GetCategoryById(categoryId);
-            if (category != null)
-            {
-                _dbContext.Categories.Remove(category);
-                _dbContext.SaveChanges();
-                _message.Success("Успешно добавлено.");
-            }
+            _dbContext.Categories.Remove(category);
+            _dbContext.SaveChanges();
+            _message.Success("Успешно удалено!");
         }
 
         public void UpdateCategoryById(Category udpatedCategory)
